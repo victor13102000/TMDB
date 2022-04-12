@@ -1,12 +1,18 @@
-const Card = ()=>{
+const Card = ({media})=>{
+
+console.log(media)
+
+const contenido= media.data ? media.data : media
+const imageUrl= "https://image.tmdb.org/t/p/w300"+contenido.poster_path;
+
+
     return (<>
  <div class="card">
-     <img src="https://media.revistagq.com/photos/5e941e89d39d4700080d7e2b/3:4/w_1125,h_1500,c_limit/la-casa-de-papel.jpg"/>
+     <img src={imageUrl}/>
       <div class="card-content">
-        <h2>aquaman</h2>
+        <h2>{contenido.title}</h2>
         <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. A cursus quis
-          tristique dignissim. In fermentum et ullamcorper et sagittis.
+          {contenido.overview}
         </p>
         <a href="#" class="btn"
           >watch now

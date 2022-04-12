@@ -62,7 +62,7 @@ passport.deserializeUser((id, done) => {
 });
 
 app.use(express.json());
-app.use("/api", routes);
+app.use("/", routes);
 const PORT = 3001;
 
 db.sync({ force:false}).then(() => {
