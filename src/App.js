@@ -6,6 +6,10 @@ import SignIn from "./components/SignIn";
 import axios from "axios";
 import { useEffect } from "react";
 
+import GridGeneral from "./components/Grid";
+
+
+
 const App = () => {
   useEffect(() => {
     axios.get("http://localhost:3001/api/login/wasLogged").then((userLoged) => {
@@ -17,11 +21,13 @@ const App = () => {
       <Heading>
         <Navbar />
       </Heading>
+    
       <Routes>
-        <Route path="/" element={<h1>Bienvenidos a TMDB</h1>} />
+        <Route path="/" element={ <GridGeneral/> } />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/signin" element={<SignIn />} />
       </Routes>
+
     </>
   );
 };

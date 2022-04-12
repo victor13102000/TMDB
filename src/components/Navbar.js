@@ -40,9 +40,9 @@ export default function  WithSubnavigation() {
       .then(()=> navigate('/'))
     }
   return (
-    <Box>
+    <Box >
       <Flex
-        bg={useColorModeValue('white', 'gray.800')}
+       bg={'rgba(51,47,83,1) 100%'}
         color={useColorModeValue('gray.600', 'white')}
         minH={'60px'}
         py={{ base: 2 }}
