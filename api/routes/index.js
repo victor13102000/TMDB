@@ -6,8 +6,8 @@ const Busqueda= require("./Busqueda")
 const Register= require("./Resgister")
 const Login= require("./Login")
 
-routes.use("/peliculas", Peliculas);
-routes.use("/series", Series);
+routes.use("/movies", Peliculas);
+routes.use("/tv", Series);
 routes.use("/busqueda",Busqueda)
 routes.use("/register", Register)
 routes.use("/login", Login )
