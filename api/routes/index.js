@@ -8,7 +8,7 @@ const Login= require("./Login")
 
 routes.use("/movies", Peliculas);
 routes.use("/tv", Series);
-routes.use("/busqueda",Busqueda)
+routes.use("/search",Busqueda)
 routes.use("/register", Register)
 routes.use("/login", Login )
 module.exports = routes;

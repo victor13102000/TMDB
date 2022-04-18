@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 
 
 function GridGeneral() {
+
 const [media, setMedia]= useState([])
   const {type}= useParams()
   
@@ -13,7 +14,8 @@ const [media, setMedia]= useState([])
     axios.get(`http://localhost:3001/${type}`)
     .then(mediaDate=> mediaDate.data)
     .then(media=> setMedia(media))
-  },[])
+  },[type])
+
 
   
   return (
