@@ -15,7 +15,7 @@ const imageUrl= "https://image.tmdb.org/t/p/w300"+contenido.poster_path;
           {contenido.overview}
         </p>
         <a href="#" class="btn"
-          >watch now
+          > See more information
           <i class="las la-long-arrow-alt-right"></i>
         </a>
       </div>

@@ -35,7 +35,7 @@ export default function WithSubnavigation() {
   const user = localStorage.getItem("user");
   const logOut = () => {
     axios
-      .post("http://localhost:3001/api/login/logout")
+      .post("http://localhost:3001/login/logout")
       .then(() => localStorage.removeItem("user"))
       .then(() => navigate("/"));
   };

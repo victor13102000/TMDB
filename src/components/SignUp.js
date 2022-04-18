@@ -27,9 +27,9 @@ export default function SignupCard() {
   const navigate= useNavigate()
   const onSubmit = async (dataSingnUp) => {
    
-const register= await axios.post('http://localhost:3001/api/register', dataSingnUp)
+const register= await axios.post('http://localhost:3001/register', dataSingnUp)
 
-   await axios.post('http://localhost:3001/api/login', {email: dataSingnUp.email,
+   await axios.post('http://localhost:3001/login', {email: dataSingnUp.email,
   password: dataSingnUp.password})
   .then((res)=> localStorage.setItem('user',`${res.data.firstName} ${res.data.lastName}`))
    .then(()=>navigate('/') )

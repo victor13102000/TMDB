@@ -19,7 +19,7 @@ import { useNavigate } from "react-router-dom";
 export default function SimpleCard() {
   const navigate=useNavigate()
   const onSubmit = (dataSingnIn) => {
-     axios.post("http://localhost:3001/api/login", dataSingnIn)
+     axios.post("http://localhost:3001/login", dataSingnIn)
      .then(res=> res.data)
      .then(user => localStorage.setItem('user',`${user.firstName} ${user.lastName}`))
      .then(()=> navigate('/'))
