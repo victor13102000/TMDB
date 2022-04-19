@@ -15,7 +15,7 @@ import Simple from "./components/Simple";
 const App = () => {
   const { search } = useLocation();
   useEffect(() => {
-    axios.get("http://localhost:3001/api/login/wasLogged").then((userLoged) => {
+    axios.get("http://localhost:3001/login/wasLogged").then((userLoged) => {
       localStorage.setItem("user", userLoged.data)
     });
   }, []);
@@ -31,7 +31,7 @@ const App = () => {
         <Route path="/signin" element={<SignIn />} />
         <Route path="/media/:type" element={<GridGeneral/>}/>
         <Route path="/search" element={<GridSearch/>}/>
-        <Route path="/Simpleview" element={<Simple/>}/>
+        <Route path="/simpleview/:id/:type" element={<Simple/>}/>
       
         
       </Routes>

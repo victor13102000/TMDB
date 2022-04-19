@@ -3,6 +3,8 @@ const Busqueda = express.Router()
 const axios = require('axios');
 const apiKey= '0ed87d57b84f7c9d6c2300276bae6c03';
 const https = require("https");
+const { useParams } = require('react-router-dom');
+const bodyParser = require('body-parser');
 
 
 axios.default.httpsAgent = new https.Agent({
@@ -20,22 +22,22 @@ process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = "0";
    .then((buscado)=> res.send(buscado.data.results))
 }) 
 
-Busqueda.get('/single', async (req, res)=>{
-try {
-  const body= req.body;
 
+
+Busqueda.post('/single', async (req, res)=>{
+
+const body= req.body
 const id= body.id;
-const type= body.type;
-console.log(id, type)
+var type= body.type;
 
-const single= await axios.get(`https://api.themoviedb.org/3/${type}/${id}?api_key=${apiKey}`)
-console.log(single)
-
+if(type === 'movies') type= 'movie'
+if(type === 'tvs') type= 'tv'
 
 
-} catch (error) {
-  console.log(error)
-}
+
+
+axios.get(`https://api.themoviedb.org/3/${type}/${id}?api_key=${apiKey}`)
+.then((buscado)=> res.send(buscado.data))
 
 })
 

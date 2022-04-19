@@ -21,10 +21,7 @@ const Home = () => {
   const onClickMovies = (e) => {
     setType("movie");
   };
-  const onClickUser = (e) => {
-    setType("user");
-  };
-
+  
   const searchMedia = async () => {
     const result = await axios.post("http://localhost:3001/search", {
       searchInput,
