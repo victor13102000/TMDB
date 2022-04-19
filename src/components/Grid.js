@@ -1,4 +1,4 @@
-import { SimpleGrid, GridItem, Box, } from "@chakra-ui/react";
+import { SimpleGrid, GridItem, Box, Link, } from "@chakra-ui/react";
 import Card from "./Card";
 import { useParams } from "react-router";
 import axios from "axios";
@@ -24,9 +24,12 @@ const [media, setMedia]= useState([])
           <SimpleGrid bgGradient='linear(to-r, rgba(51,47,83,1), pink.500)' spacing="30px" minChildWidth="300px">
          {media && media.map((media, i)=>{
            return <>
+           
         <GridItem key={i}>
-            <Card media={media}></Card>
+            <Card media={media} type={type}></Card>
           </GridItem>
+           
+
            </>
          })}
 
