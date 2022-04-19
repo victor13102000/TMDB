@@ -131,9 +131,9 @@ export default function WithSubnavigation() {
             fontSize={"lg"}
             fontWeight={400}
             variant={"link"}
-            href={"#"}
+            href="https://github.com/victor13102000"
           >
-            <Linked to="/">GitHub</Linked>
+            GitHub
           </Button>
 
           {user ? (
