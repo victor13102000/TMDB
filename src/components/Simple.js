@@ -16,43 +16,54 @@ import {
   List,
   ListItem,
 } from "@chakra-ui/react";
-import { Icon } from '@chakra-ui/react'
-import {StarIcon} from '@chakra-ui/icons'
+import { Icon } from "@chakra-ui/react";
+import { StarIcon } from "@chakra-ui/icons";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 export default function Simple() {
   const params = useParams();
-  const { id, type } = params;
-  const [title, setTitle]= useState()
-  const [overview, setOverview]= useState()
-  const [date, setDate]= useState()
-  const [lenguaje, setLenguaje]= useState()
-  const [genres, setGenres]= useState()
-  const [productioncompanies, setProduction_companies]= useState()
-  const [imag ,setImag]= useState()
+  let { id, type } = params;
+  const [title, setTitle] = useState();
+  const [overview, setOverview] = useState();
+  const [date, setDate] = useState();
+  const [lenguaje, setLenguaje] = useState();
+  const [genres, setGenres] = useState();
+  const [productioncompanies, setProduction_companies] = useState();
+  const [imag, setImag] = useState();
+  const userId = parseInt(localStorage.getItem('userId'))
+  let isFavorite= false;
+  if (type === "movies") type = "movie";
+  if (type === "tvs") type = "tv";
 
+  useEffect(async () => {
+    const datos = await axios.post("http://localhost:3001/search/single", {
+      id: id,
+      type: type,
+    });
+    if (datos.data) {
+      console.log(datos.data);
+      setTitle(datos.data.title ? datos.data.title : datos.data.name);
+      setOverview(datos.data.overview);
+      setDate(datos.data.release_date);
+      setLenguaje(datos.data.original_language);
+      setGenres(datos.data.genres);
+      setProduction_companies(datos.data.production_companies);
+      setImag(`https://image.tmdb.org/t/p/w300${datos.data.poster_path}`);
+    }
 
-useEffect(async () => {
-  const datos = await axios.post("http://localhost:3001/search/single",{id:id ,type:type})
-  if (datos.data) {
-    console.log(datos.data)
-   setTitle(datos.data.title? datos.data.title : datos.data.name)
-   setOverview(datos.data.overview)
-   setDate(datos.data.release_date)
-   setLenguaje(datos.data.original_language)
-   setGenres(datos.data.genres)
-   setProduction_companies(datos.data.production_companies)
-   setImag(`https://image.tmdb.org/t/p/w300${datos.data.poster_path}`)
-  }
-}, []);
+  }, []);
 
+  if(typeof(id)!= 'number') id = parseInt(id)
 
-
-  
-
-
+  const addtofavorite = () => {
+    axios.post("http://localhost:3001/favorites/addtofavorite", {
+      userId: userId,
+      mediaId: id,
+      type: type,
+    });
+  };
 
   return (
     <Container bgGradient="linear(to-l, #7928CA, #FF0080)" maxW={"7xl"}>
@@ -62,12 +73,10 @@ useEffect(async () => {
         py={{ base: 18, md: 24 }}
       >
         <Flex>
-          
           <Image
             rounded={"md"}
             alt={"product image"}
-            src={imag
-            }
+            src={imag}
             fit={"cover"}
             align={"center"}
             w={"100%"}
@@ -75,33 +84,30 @@ useEffect(async () => {
           />
         </Flex>
         <Stack spacing={{ base: 6, md: 10 }}>
-          <Box  textAlign={'end'} as={"header"}>
-          <Heading
-           
-           lineHeight={1.1}
-           fontWeight={600}
-           fontSize={{ base: "2xl", sm: "4xl", lg: "5xl" }}
-         > 
-            <Icon  as={StarIcon} /> 
-         </Heading>
-
-          </Box>
-          <Box as={"header"}>
+          <Box textAlign={"end"} as={"header"}>
             <Heading
-           
               lineHeight={1.1}
               fontWeight={600}
               fontSize={{ base: "2xl", sm: "4xl", lg: "5xl" }}
             >
-            {title} 
+              <Icon onClick={addtofavorite} as={StarIcon} />
+            </Heading>
+          </Box>
+          <Box as={"header"}>
+            <Heading
+              lineHeight={1.1}
+              fontWeight={600}
+              fontSize={{ base: "2xl", sm: "4xl", lg: "5xl" }}
+            >
+              {title}
             </Heading>
             <Text
               color={useColorModeValue("gray.900", "gray.400")}
               fontWeight={300}
               fontSize={"2xl"}
             >
-             {date} <br/>
-             {lenguaje === 'en' && 'language: English'}
+              {date} <br />
+              {lenguaje === "en" && "language: English"}
             </Text>
           </Box>
 
@@ -115,10 +121,7 @@ useEffect(async () => {
             }
           >
             <VStack spacing={{ base: 4, sm: 6 }}>
-              
-              <Text fontSize={"lg"}>
-              {overview}
-              </Text>
+              <Text fontSize={"lg"}>{overview}</Text>
             </VStack>
             <Box>
               <Text
@@ -130,12 +133,13 @@ useEffect(async () => {
               >
                 Genres
               </Text>
-          
+
               <SimpleGrid columns={{ base: 1, md: 2 }} spacing={10}>
                 <List spacing={2}>
-                  {genres && genres.map(genre=>{
-                    return<ListItem>{genre.name}</ListItem>
-                  })}
+                  {genres &&
+                    genres.map((genre) => {
+                      return <ListItem>{genre.name}</ListItem>;
+                    })}
                 </List>
               </SimpleGrid>
             </Box>
@@ -147,17 +151,19 @@ useEffect(async () => {
                 textTransform={"uppercase"}
                 mb={"4"}
               >
-               Production Companies
+                Production Companies
               </Text>
               <List spacing={2}>
-                {productioncompanies && productioncompanies.map(companie=>{
-                  return  <ListItem>
-                  <Text as={"span"} fontWeight={"bold"}>
-                    {companie.name}
-                  </Text>
-                </ListItem>
-                })}
-               
+                {productioncompanies &&
+                  productioncompanies.map((companie) => {
+                    return (
+                      <ListItem>
+                        <Text as={"span"} fontWeight={"bold"}>
+                          {companie.name}
+                        </Text>
+                      </ListItem>
+                    );
+                  })}
               </List>
             </Box>
           </Stack>

@@ -21,7 +21,9 @@ export default function SimpleCard() {
   const onSubmit = (dataSingnIn) => {
      axios.post("http://localhost:3001/login", dataSingnIn)
      .then(res=> res.data)
-     .then(user => localStorage.setItem('user',`${user.firstName} ${user.lastName}`))
+     .then(user => {localStorage.setItem('user',`${user.firstName} ${user.lastName}`)
+    localStorage.setItem('userId', `${user.id}` )
+    })
      .then(()=> navigate('/'))
   };
   const { register, handleSubmit } = useForm();
