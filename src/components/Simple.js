@@ -12,7 +12,7 @@ import {
   SimpleGrid,
   StackDivider,
   useColorModeValue,
-  VisuallyHidden,
+  
   List,
   ListItem,
 } from "@chakra-ui/react";
@@ -32,11 +32,11 @@ export default function Simple() {
   const [genres, setGenres] = useState();
   const [productioncompanies, setProduction_companies] = useState();
   const [imag, setImag] = useState();
-  const userId = parseInt(localStorage.getItem('userId'))
-  let isFavorite= false;
+  const userId = parseInt(localStorage.getItem("userId"));
+  let isFavorite = false;
   if (type === "movies") type = "movie";
   if (type === "tvs") type = "tv";
-
+console.log(id, type)
   useEffect(async () => {
     const datos = await axios.post("http://localhost:3001/search/single", {
       id: id,
@@ -52,10 +52,9 @@ export default function Simple() {
       setProduction_companies(datos.data.production_companies);
       setImag(`https://image.tmdb.org/t/p/w300${datos.data.poster_path}`);
     }
-
   }, []);
 
-  if(typeof(id)!= 'number') id = parseInt(id)
+  if (typeof id != "number") id = parseInt(id);
 
   const addtofavorite = () => {
     axios.post("http://localhost:3001/favorites/addtofavorite", {

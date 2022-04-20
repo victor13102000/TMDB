@@ -29,7 +29,7 @@ const Home = () => {
     });
     const media = result.data;
     dispatch(setSearch(media));
-    navigate("/search");
+    navigate(`/search/${type}`);
   };
 
   return (

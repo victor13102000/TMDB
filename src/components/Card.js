@@ -11,7 +11,7 @@ const id= contenido.id
     return (<>
 
  <div class="card">
-     <img src={imageUrl}/>
+     <img  src={imageUrl}/>
       <div class="card-content">
         <h2>{contenido.title}</h2>
         <p>

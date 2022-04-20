@@ -25,14 +25,17 @@ export default function SignupCard() {
   const [showPassword, setShowPassword] = useState(false);
   const { register, handleSubmit } = useForm();
   const navigate= useNavigate()
+
+
   const onSubmit = async (dataSingnUp) => {
    
 const register= await axios.post('http://localhost:3001/register', dataSingnUp)
 
-   await axios.post('http://localhost:3001/login', {email: dataSingnUp.email,
+   const login=await axios.post('http://localhost:3001/login', {email: dataSingnUp.email,
   password: dataSingnUp.password})
-  .then((res)=> localStorage.setItem('user',`${res.data.firstName} ${res.data.lastName}`))
-   .then(()=>navigate('/') )
+  localStorage.setItem('user',`${login.data.firstName} ${login.data.lastName}`)
+  localStorage.setItem('userId',`${login.data.id}`)
+   navigate('/') 
 
 
   };

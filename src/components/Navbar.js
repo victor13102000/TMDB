@@ -23,6 +23,7 @@ import {
   CloseIcon,
   ChevronDownIcon,
   ChevronRightIcon,
+  StarIcon
 } from "@chakra-ui/icons";
 import { Link as Linked } from "react-router-dom";
 import { useEffect } from "react";
@@ -33,12 +34,15 @@ export default function WithSubnavigation() {
   const navigate = useNavigate();
   const { isOpen, onToggle } = useDisclosure();
   const user = localStorage.getItem("user");
+  const id = localStorage.getItem('userId')
   const logOut = () => {
     axios
       .post("http://localhost:3001/login/logout")
       .then(() => localStorage.removeItem("user"))
       .then(() => navigate("/"));
   };
+
+
   return (
     <Box>
       <Flex
@@ -66,7 +70,7 @@ export default function WithSubnavigation() {
             aria-label={"Toggle Navigation"}
           />
         </Flex>
-        <Flex flex={{ base: 1 }} justify={{ base: "center", md: "start" }}>
+        <Flex flex={{ base: 1 }}  justify={{ base: "center", md: "start" }}>
           <Text
             fontSize={"lg"}
             textAlign={useBreakpointValue({ base: "center", md: "left" })}
@@ -79,6 +83,16 @@ export default function WithSubnavigation() {
           </Text>
 
           <Flex display={{ base: "none", md: "flex" }} ml={10}>
+         <Linked to={`/favorite/${id}`}>
+          <Icon height={'20px'} _hover={{
+    color: "yellow.400",
+  }}
+  _active={{
+    color:"yellow.400"
+  }}
+ as={StarIcon} />
+         </Linked>
+        
             <DesktopNav />
           </Flex>
         </Flex>
